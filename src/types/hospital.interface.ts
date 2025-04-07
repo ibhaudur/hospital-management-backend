@@ -5,7 +5,6 @@ export interface Patient extends Document {
     fullname: string;
     emailId: string;
     password: string;
-    userType: string;
     specialization: string;
     dob: Date;
     contactNumber: number;

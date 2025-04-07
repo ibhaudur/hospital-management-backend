@@ -2,6 +2,7 @@ import connectDB from "./config/db.config";
 import express, { Request, Response } from "express";
 import cors from "cors";
 import logger from "./utils/logger";
+import authRoutes from "./routes/auth.routes";
 import appointmentRoutes from "./routes/appointment.routes";
 
 const app = express();
@@ -14,6 +15,7 @@ connectDB();
 app.get("/", (req: Request, res: Response) => {
   res.send({ message: "Hiii" });
 });
+authRoutes(app)
 
 appointmentRoutes(app);
 
