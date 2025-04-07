@@ -5,7 +5,6 @@ import logger from "./utils/logger";
 import appointmentRoutes from "./routes/appointment.routes";
 import authRoutes from "./routes/auth.routes";
 
-
 const app = express();
 
 app.use(express.json());
