@@ -3,13 +3,14 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import logger from "../../utils/logger";
 import userModel from "../../models/user.model";
+import { decrypt, encrypt } from "../../security/AES";
 
 const authRegister = async (req: Request, res: Response): Promise<void> => {
   if (!req.body) {
     res.status(400).send({ message: "Content can not be empty!" });
     return;
   }
-  const data = req.body.data;
+  const data = decrypt(req.body.data);
   const { password, ...rest } = data;
 
   try {
@@ -41,12 +42,12 @@ const authRegister = async (req: Request, res: Response): Promise<void> => {
     res
       .status(201)
       .send({
-        data: {
+        data: encrypt({
           status: true,
           message: password
             ? "Registered Successfully!!"
             : "User Added Successfully!",
-        },
+        }),
       });
     logger.info({
       message: password
