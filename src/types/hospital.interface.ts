@@ -17,3 +17,6 @@ export interface Patient extends Document {
    export interface CustomRequest extends Request {
       user?: any;
     }
+export interface ISpecialization extends Document {
+  name:string;
+}
