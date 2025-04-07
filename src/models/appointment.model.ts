@@ -3,8 +3,8 @@ import { IAppointment } from "../types/hospital.types";
 
 
 const AppointmentSchema:Schema = new Schema({
-  patientId: { type: mongoose.Types.ObjectId, ref: "Patient", required: true },
-  doctorId: { type: mongoose.Types.ObjectId, ref: "Doctor", required: true },
+  patientId: { type: mongoose.Types.ObjectId, ref: "users", required: true },
+  doctorId: { type: mongoose.Types.ObjectId, ref: "users", required: true },
   date: { type: Date, required: true },
   timeslot: { type: String, required: true },
   status: {

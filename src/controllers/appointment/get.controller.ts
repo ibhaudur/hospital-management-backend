@@ -11,12 +11,20 @@ export const getAllAppointments = async (
     let { page = 1, limit = 5, status } = request.query;
     const { _id, role } = request?.user?._doc;
 
-    let patientId = role === "admin" ? "" : _id;
-
     page = parseInt(page as string);
     limit = parseInt(limit as string);
 
-    const query = patientId === "" ? {} : { patientId };
+    const query =
+      role === "admin"
+        ? {}
+        : role === "patient"
+        ? { patientId: _id }
+        : { doctorId: _id };
+
+    console.log(query);
+
+    console.log(role);
+    
 
     const totalAppointments = await Appointment.countDocuments(query);
     const totalPages = Math.ceil(totalAppointments / limit);
