@@ -31,9 +31,8 @@ const authRegister = async (req: Request, res: Response): Promise<void> => {
       ...rest,
       password: hashedPassword,
       date: new Date(),
-      role: data?.userType === "patient" ? "patient" : "doctor",
       permission:
-        data?.userType === "patient"
+        data?.role === "patient"
           ? ["dashboard", "appointmentManagement",]
           : ["dashboard", "doctorManagement", "appointmentManagement","usersManagement"],
     };

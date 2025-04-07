@@ -11,7 +11,7 @@ const userSchema : Schema = new Schema({
         require: true,
         unique: true
     },
-    userType: {
+    role: {
         type: String,
         require: true
     },
@@ -41,10 +41,6 @@ const userSchema : Schema = new Schema({
         require: true
     },
     address: {
-        type: String,
-        require: true
-    },
-    role: {
         type: String,
         require: true
     },
