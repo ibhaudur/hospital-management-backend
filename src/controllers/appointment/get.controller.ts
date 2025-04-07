@@ -11,31 +11,39 @@ export const getAllAppointments = async (
     let { page = 1, limit = 5, status } = request.query;
     const { _id, role } = request?.user?._doc;
 
-    
-    let patientId = role === "admin" ? "" : _id;
-
     page = parseInt(page as string);
     limit = parseInt(limit as string);
 
-    const query = patientId === "" ? {} : { patientId };
+    const query =
+      role === "admin"
+        ? {}
+        : role === "patient"
+        ? { patientId: _id }
+        : { doctorId: _id };
+
+    console.log(query);
+
+    console.log(role);
+    
 
     const totalAppointments = await Appointment.countDocuments(query);
     const totalPages = Math.ceil(totalAppointments / limit);
-    const appointments = await Appointment
-      .find(query)
+    const appointments = await Appointment.find(query)
       .populate("patientId")
       .skip((page - 1) * limit)
       .limit(limit)
       .exec();
 
     response.status(200).send({
+      data: {
         status: true,
         message: "Appointments Fetched Successfully",
         data: appointments,
         totalAppointments,
         totalPages,
         currentPage: page,
-      });
+      },
+    });
     logger.info({
       status: true,
       message: "Appointments Fetched Successfully",
@@ -45,11 +53,9 @@ export const getAllAppointments = async (
       currentPage: page,
     });
   } catch (error) {
-    response
-      .status(500)
-      .json({ status: false, message: "Server Error" });
-      console.log(error);
-      
+    response.status(500).json({ status: false, message: "Server Error" });
+    console.log(error);
+
     logger.info("Server Error");
   }
 };
