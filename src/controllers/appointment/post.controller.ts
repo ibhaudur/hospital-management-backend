@@ -1,7 +1,8 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { Appointment } from "../../models/appointment.model";
+import { CustomRequest } from "../../types/hospital.interface";
 
-const CreateAppointment = async(req: Request, res: Response): Promise<any> => {
+const CreateAppointment = async(req: CustomRequest, res: Response): Promise<any> => {
 try{
    
     if(!req.body){
@@ -10,13 +11,14 @@ try{
     }
     const {doctorId, date, timeslot, status} = req.body.data;
 
-    // let user;
-    // if(req.user._doc){
-    //     user = req.user._doc;
-    // }
+    let user;
+    console.log('req.user._doc---', req?.user._doc);
+    if(req?.user._doc){
+        user = req?.user._doc;
+    }
 
-    // const patientId = user._id;
-    const patientId = '67f244312a1e3bc505603276';
+    const patientId = user._id;
+
     const appointmentPayload = {
         patientId: patientId,
         doctorId: doctorId,
