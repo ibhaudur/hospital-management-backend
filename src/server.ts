@@ -3,6 +3,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import logger from "./utils/logger";
 import appointmentRoutes from "./routes/appointment.routes";
+import authRoutes from "./routes/auth.routes";
 
 
 const app = express();
@@ -17,6 +18,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 appointmentRoutes(app);
+authRoutes(app)
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
