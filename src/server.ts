@@ -4,6 +4,7 @@ import cors from "cors";
 import logger from "./utils/logger";
 import appointmentRoutes from "./routes/appointment.routes";
 import authRoutes from "./routes/auth.routes";
+import specializationRoutes from "./routes/speacialization.routes";
 
 const app = express();
 
@@ -18,7 +19,7 @@ app.get("/", (req: Request, res: Response) => {
 
 appointmentRoutes(app);
 authRoutes(app)
-
+specializationRoutes(app)
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`connected to port ${PORT}`);
