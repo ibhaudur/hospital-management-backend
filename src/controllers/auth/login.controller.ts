@@ -3,9 +3,10 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import logger from "../../utils/logger";
 import userModel from "../../models/user.model";
+import { decrypt, encrypt } from "../../security/AES";
 
 const authLoginUser = async (req: Request, res: Response): Promise<void> => {
-  const { emailId, password } = req.body.data;
+  const { emailId, password } = decrypt(req.body.data);
 
   if (!emailId || !password) {
     res.status(400).send({ message: "Email and password are required!" });
@@ -38,12 +39,12 @@ const authLoginUser = async (req: Request, res: Response): Promise<void> => {
       expiresIn: "1h",
     });
     const { password: _, ...rest } = user.toObject();
-    res.status(200).send({data: {
+    res.status(200).send({data:encrypt({
       status: true,
       message: "Login successful!",
       data: rest,
       accessToken: token,
-    }});
+    })});
     logger.info({message: "Logged in Successfully!",data: rest})
   } catch (error) {
     console.error(error);
