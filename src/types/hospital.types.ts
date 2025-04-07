@@ -1,3 +1,4 @@
+import { Request } from "express";
 import mongoose from "mongoose";
 
 export interface IAppointment extends Document {
@@ -7,3 +8,7 @@ export interface IAppointment extends Document {
   timeslot: string;
   status: string;
 }
+
+export interface CustomRequest extends Request {
+    user?: any;
+  }
