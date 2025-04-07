@@ -34,21 +34,19 @@ const authRegister = async (req: Request, res: Response): Promise<void> => {
       date: new Date(),
       permission:
         data?.role === "patient"
-          ? ["dashboard", "appointmentManagement",]
-          : ["dashboard", "doctorManagement", "appointmentManagement","usersManagement"],
+          ? ["dashboard", "appointmentManagement"]
+          : ["dashboard", "appointmentManagement", "usersManagement"],
     };
 
     await userModel.create(user);
-    res
-      .status(201)
-      .send({
-        data: encrypt({
-          status: true,
-          message: password
-            ? "Registered Successfully!!"
-            : "User Added Successfully!",
-        }),
-      });
+    res.status(201).send({
+      data: encrypt({
+        status: true,
+        message: password
+          ? "Registered Successfully!!"
+          : "User Added Successfully!",
+      }),
+    });
     logger.info({
       message: password
         ? "Registered Successfully!!"

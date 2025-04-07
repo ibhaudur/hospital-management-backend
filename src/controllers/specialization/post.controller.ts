@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { decrypt, encrypt } from "../../security/AES";
 import SpecializationModel from "../../models/specialization.model";
 
-
 const createSpecialization = async (req: Request, res: Response) => {
     const data = decrypt(req.body.data)
 
