@@ -10,6 +10,8 @@ export const getAllAppointments = async (
   try {
     let { page = 1, limit = 5, status } = request.query;
     const { _id, role } = request?.user?._doc;
+
+    
     let patientId = role === "admin" ? "" : _id;
 
     page = parseInt(page as string);
