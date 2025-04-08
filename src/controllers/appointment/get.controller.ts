@@ -30,6 +30,7 @@ export const getAllAppointments = async (
     const totalPages = Math.ceil(totalAppointments / limit);
     const appointments = await Appointment.find(query)
       .populate("patientId")
+      .populate("doctorId")
       .skip((page - 1) * limit)
       .limit(limit)
       .exec();
@@ -54,8 +55,7 @@ export const getAllAppointments = async (
     });
   } catch (error) {
     response.status(500).json({ status: false, message: "Server Error" });
-    console.log(error);
 
-    logger.info("Server Error");
+    logger.error("Server Error");
   }
 };
