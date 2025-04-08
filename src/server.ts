@@ -7,6 +7,7 @@ import authRoutes from "./routes/auth.routes";
 import specializationRoutes from "./routes/speacialization.routes";
 import userRoutes from "./routes/user.routes";
 import dashBoardRoutes from "./routes/dashboard.routes";
+import timeslotRoute from "./routes/timeslot.route";
 
 const app = express();
 
@@ -24,6 +25,7 @@ authRoutes(app);
 specializationRoutes(app);
 userRoutes(app);
 dashBoardRoutes(app);
+timeslotRoute(app)
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
